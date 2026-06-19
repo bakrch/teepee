@@ -1,0 +1,11 @@
+{
+  "name": "teepee-js",
+  "version": "1.0.0",
+  "description": "Backend to interact with the QR203 Thermal Printer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chakkor Bakr",
+  "license": "ISC"
+}
