@@ -8,6 +8,7 @@ HardwareSerial printer(2);
 WebServer server(80);
 
 void setup() {
+  Serial.begin(115200);
   setupServer();    
 
   // put your setup code here, to run once:
@@ -18,7 +19,6 @@ void setup() {
     16,
     17
   );
-  printer.println("");
   printer.println("");
   delay(50);
   printer.println("******************************");
@@ -40,11 +40,11 @@ void setupServer() {
     const char* ssid = "glinet";
     const char* password = "aJpxasPX13haHeYwam";
     WiFi.begin(ssid, password);
-
+    Serial.println("Connecting to wifi..");
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
     }
-
+    Serial.println("Connection established.");
     server.on("/test", HTTP_GET, []() {
         server.send(200, "text/plain", "ok");
     });
@@ -53,12 +53,12 @@ void setupServer() {
     HTTP_POST,
     []()
     {
-      String body = server.arg("plain");
 
-      printer.write(
-          (const uint8_t*)body.c_str(),
-          body.length()
-      );
+      Serial.println("Received request at /print/raw");
+      String body = server.arg("plain");
+      Serial.println("Request body: " + body);
+      printer.print(body);
+      printer.println("\n\n");
 
       server.send(
           200,
