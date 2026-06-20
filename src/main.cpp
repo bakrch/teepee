@@ -49,7 +49,7 @@ void setupServer() {
         server.send(200, "text/plain", "ok");
     });
     server.on(
-    "/print/raw",
+    "/print/text",
     HTTP_POST,
     []()
     {
